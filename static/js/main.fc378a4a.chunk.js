@@ -1,0 +1,2 @@
+(this["webpackJsonpgoit-react-hw-05-cinema-search"]=this["webpackJsonpgoit-react-hw-05-cinema-search"]||[]).push([[0],{15:function(e,t,c){},26:function(e,t,c){"use strict";c.r(t);var n=c(0),r=c.n(n),a=c(7),s=c.n(a),i=c(10),h=(c(15),c(16),c(1));var o=function(){return Object(h.jsx)(h.Fragment,{children:Object(h.jsx)("header",{className:"App-header"})})};s.a.render(Object(h.jsx)(r.a.StrictMode,{children:Object(h.jsx)(i.a,{children:Object(h.jsx)(o,{})})}),document.getElementById("root"))}},[[26,1,2]]]);
+//# sourceMappingURL=main.fc378a4a.chunk.js.map
