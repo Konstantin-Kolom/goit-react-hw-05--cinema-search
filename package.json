@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-05--cinema-search",
+  "name": "goit-react-hw-05-cinema-search",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Konstantin-Kolom.github.io/goit-react-hw-05--cinema-search",
+  "homepage": "http://Konstantin-Kolom.github.io/goit-react-hw-05-cinema-search",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
