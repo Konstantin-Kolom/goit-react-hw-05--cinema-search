@@ -5,7 +5,6 @@ import * as fetchApi from '../../utilits/muvie-api';
 
 export function Reviews() {
   const [reviews, setReviews] = useState([]);
-
   const { muvieid } = useParams();
 
   useEffect(() => {
@@ -15,19 +14,20 @@ export function Reviews() {
     });
   }, [muvieid]);
 
-  //   const { author, content } = reviews;
-
   return (
     <>
-      {/* <button type="button">Hide additional information</button> */}
-      <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <p>Author: {review.author}</p>
-            <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
+      {reviews.length > 0 && (
+        <ul>
+          {reviews.map(review => (
+            <li key={review.id}>
+              <p>Author: {review.author}</p>
+              <p>{review.content}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {reviews.length === 0 && <p>We don't heve any reviews for this movie </p>}
     </>
   );
 }

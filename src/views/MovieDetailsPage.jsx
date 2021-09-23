@@ -24,7 +24,7 @@ export function MovieDetailsPage() {
   const history = useHistory();
 
   function handleClick() {
-    history.push(location.state.from);
+    history.push(location.state?.from ? location.state.from : '/');
   }
 
   useEffect(() => {
@@ -68,9 +68,27 @@ export function MovieDetailsPage() {
 
           <div>
             <h3>Additional information</h3>
-            <div>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+            <ul>
+              <li>
+                <NavLink
+                  to={{
+                    pathname: `${url}/cast`,
+                    state: { from: location.state.from },
+                  }}
+                >
+                  Cast
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={{
+                    pathname: `${url}/reviews`,
+                    state: { from: location.state.from },
+                  }}
+                >
+                  Reviews
+                </NavLink>
+              </li>
 
               <Route path={`${path}/cast`}>
                 <Cast />
@@ -79,7 +97,7 @@ export function MovieDetailsPage() {
               <Route path={`${path}/reviews`}>
                 <Reviews />
               </Route>
-            </div>
+            </ul>
           </div>
         </div>
       </div>

@@ -3,15 +3,8 @@ import { useParams } from 'react-router';
 import * as fetchApi from '../../utilits/muvie-api';
 
 export function Cast() {
-  const [actors, setActors] = useState([]);
   const { muvieid } = useParams();
-
-  //   const history = useHistory();
-
-  //   function handleClick() {
-  //     console.log('fff');
-  //     history.push(`/movies/${muvieid}`);
-  //   }
+  const [actors, setActors] = useState([]);
 
   useEffect(() => {
     fetchApi.fetchActors(muvieid).then(actor => {
@@ -22,9 +15,6 @@ export function Cast() {
 
   return (
     <>
-      {/* <button type="button" onClick={handleClick}>
-        Hide additional information
-      </button> */}
       {actors.map(actor => (
         <div key={actor.id}>
           <img src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt="poster" />
@@ -32,6 +22,7 @@ export function Cast() {
           <p>Character: {actor.character}</p>
         </div>
       ))}
+      {actors.length === 0 && <p>We have no information about the actors for this movie </p>}
     </>
   );
 }
