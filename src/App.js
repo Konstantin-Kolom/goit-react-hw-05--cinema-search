@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { Navigation } from './components/Novigation/Novigation.jsx';
@@ -7,17 +6,6 @@ import { MoviesPage } from './views/MoviesPage.jsx';
 import { MovieDetailsPage } from './views/MovieDetailsPage';
 
 function App() {
-  const [idMuvie, setIdMuvie] = useState('');
-  const [searchValue, setSearchValue] = useState('');
-
-  const dataIdVideo = dataId => {
-    setIdMuvie(dataId);
-  };
-
-  const formSubmit = searchData => {
-    setSearchValue(searchData);
-  };
-
   return (
     <>
       <header className="App-header">
@@ -27,15 +15,19 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact>
-            <HomePage dataIdVideo={dataIdVideo} />
+            <HomePage />
           </Route>
 
-          <Route path="/movies" exact>
-            <MoviesPage onSubmit={formSubmit} />
+          <Route path="/movies/:muvieid">
+            <MovieDetailsPage />
           </Route>
 
-          <Route path={`/movies/${idMuvie}`}>
-            <MovieDetailsPage idMuvie={idMuvie} />
+          <Route path="/movies">
+            <MoviesPage />
+          </Route>
+
+          <Route>
+            <HomePage />
           </Route>
         </Switch>
       </main>

@@ -1,64 +1,103 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Route,
+  NavLink,
+  useHistory,
+  useParams,
+  useRouteMatch,
+  useLocation,
+} from 'react-router-dom';
 
-import { API_KEY, URL } from '../utilits/api-utils';
+import { NotFondView } from '../views/NotFondView';
+import { Cast } from '../components/Cats/Cast';
+import { Reviews } from '../components/Reviews/Reviews';
 
-export function MovieDetailsPage({ idMuvie }) {
+import * as fetchApi from '../utilits/muvie-api';
+
+export function MovieDetailsPage() {
   const [movie, setMuvie] = useState('');
-  //   const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+
+  const { url, path } = useRouteMatch();
+  const { muvieid } = useParams();
+  const location = useLocation();
+  const history = useHistory();
+
+  function handleClick() {
+    history.push(location.state.from);
+  }
 
   useEffect(() => {
-    fetch(`${URL}movie/${idMuvie}?api_key=${API_KEY}&language=en-US`).then(response => {
-      if (response.ok) {
-        return response.json().then(mov => {
-          const data = mov;
-          //  if (data.length > 0) {
-          setMuvie(data);
-          //  }
-        });
-        //  .catch(() => setError(true));
-        //  .finally(() => this.setState({ loading: false }));
-      }
-      return Promise.reject(new Error(`Erorr loading....`));
-    });
-  }, [idMuvie]);
+    fetchApi
+      .fetchMovieId(muvieid)
+      .then(data => {
+        setMuvie(data);
+      })
+      .catch(() => setError(true));
+  }, [muvieid]);
+
   const { name, title, poster_path, vote_average, overview, genres } = movie;
 
   if (movie !== '') {
     return (
       <div>
-        <img src={`https://image.tmdb.org/t/p/w300${poster_path}`} alt="poster" loading="lazy" />
-        <h2 className="title">
-          {name}
-          {title}
-        </h2>
-        <p>User score: {vote_average * 10}%</p>
-        <p>Overview: {overview}</p>
-        <p>
-          Genres:{' '}
-          {genres.map(genre => (
-            <span key={genre.id}>{genre.name}</span>
-          ))}
-        </p>
-        <p></p>
-        <p></p>
+        <button type="button" onClick={handleClick}>
+          Go back
+        </button>
+
         <div>
-          <h3>Additional information</h3>
           <div>
-            <Link>Cast</Link>
-            <Link>Reviews</Link>
+            <img
+              src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+              alt="poster"
+              loading="lazy"
+            />
+            <h2 className="title">
+              {name}
+              {title}
+            </h2>
+            <p>User score: {vote_average * 10}%</p>
+            <p>Overview: {overview}</p>
+            <p>
+              Genres:
+              {genres.map(genre => (
+                <span key={genre.id}>{genre.name}</span>
+              ))}
+            </p>
+          </div>
+
+          <div>
+            <h3>Additional information</h3>
+            <div>
+              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+
+              <Route path={`${path}/cast`}>
+                <Cast />
+              </Route>
+
+              <Route path={`${path}/reviews`}>
+                <Reviews />
+              </Route>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  if (movie === '') {
+  if (movie === '' && error === false) {
     return <h1>Loading</h1>;
   }
 
-  //   if (error === true) {
-  //     console.log('ddd');
-  //     return <h1>Sorry</h1>;
-  //   }
+  if (movie === '' && error === true) {
+    return (
+      <>
+        <button type="button" onClick={handleClick}>
+          Go back
+        </button>
+        <NotFondView />
+      </>
+    );
+  }
 }
