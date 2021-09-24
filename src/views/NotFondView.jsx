@@ -1,3 +1,3 @@
 export function NotFondView() {
-  return <h1>404 Page not fond :( </h1>;
+  return <h1>Sorry, we have no information about this movie :( </h1>;
 }

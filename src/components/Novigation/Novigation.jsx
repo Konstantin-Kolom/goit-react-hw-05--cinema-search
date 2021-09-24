@@ -3,7 +3,7 @@ import s from './Novigation.module.css';
 
 export const Navigation = () => {
   return (
-    <nav>
+    <nav className={s.navBox}>
       <NavLink exact to="/" className={s.navLink} activeClassName={s.navLinkActive}>
         Home
       </NavLink>

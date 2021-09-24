@@ -12,6 +12,18 @@
 }
 
 .navLinkActive {
-  /* composes: link; */
   color: red;
+}
+
+.navBox {
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  height: 50 px;
+  width: 100%;
+  background-color: #c0cbeb;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+    0 1px 10px 0 rgb(0 0 0 / 12%);
 }

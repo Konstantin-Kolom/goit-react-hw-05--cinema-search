@@ -1,0 +1,41 @@
+.searchForm {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.input {
+  display: inline-block;
+  width: 100%;
+  font-size: 18px;
+  outline: none;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-right: 4px;
+}
+
+.button {
+  font-weight: 500;
+  display: inline-block;
+  height: 32px;
+  width: 100px;
+  cursor: pointer;
+  background: #dadee2;
+  border: 2px solid #758a9b;
+  border-radius: 5px;
+}
+
+.button:hover {
+  font-weight: 500;
+  color: blue;
+  background: #ececdc;
+  border: 2px solid blue;
+}
+
+.searcText {
+  font-weight: 500;
+  color: blue;
+}

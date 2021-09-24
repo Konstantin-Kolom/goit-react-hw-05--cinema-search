@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import * as fetchApi from '../utilits/muvie-api';
 import { ListMovies } from '../components/ListMovies/ListMovies';
 import { useHistory, useLocation } from 'react-router';
+import s from './css/MoviesPage.module.css';
 
 export function MoviesPage() {
   const [value, setValue] = useState('');
@@ -41,7 +42,7 @@ export function MoviesPage() {
 
   return (
     <>
-      <form onSubmit={hendleSubmit}>
+      <form onSubmit={hendleSubmit} className={s.searchForm}>
         <input
           type="text"
           autoComplete="off"
@@ -49,8 +50,9 @@ export function MoviesPage() {
           placeholder="Search muvie"
           value={value}
           onChange={hendleChange}
+          className={s.input}
         />
-        <button type="submit">
+        <button type="submit" className={s.button}>
           <span>Search</span>
         </button>
       </form>
@@ -58,7 +60,8 @@ export function MoviesPage() {
       {listMuvies !== '' && (
         <div>
           <p>
-            The result of a list of films by title: <span> {searchlData}</span>
+            The result of a list of films by title:{' '}
+            <span className={s.searcText}> "{searchlData}"</span>
           </p>
           <ul>
             <ListMovies list={listMuvies} />

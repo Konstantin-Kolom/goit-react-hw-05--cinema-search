@@ -22,7 +22,9 @@ export function Cast() {
           <p>Character: {actor.character}</p>
         </div>
       ))}
-      {actors.length === 0 && <p>We have no information about the actors for this movie </p>}
+      {actors.length === 0 && (
+        <h2>Sorry. We have no information about the actors for this movie </h2>
+      )}
     </>
   );
 }

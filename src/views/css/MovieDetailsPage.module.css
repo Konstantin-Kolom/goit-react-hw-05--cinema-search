@@ -1,0 +1,43 @@
+.button {
+  font-weight: 500;
+  display: inline-block;
+  height: 30px;
+  width: 100px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  background: #dadee2;
+  border: 2px solid #758a9b;
+  border-radius: 5px;
+}
+
+.button:hover {
+  font-weight: 500;
+  color: blue;
+  background: rgb(236, 236, 220);
+  border: 2px solid blue;
+}
+
+.boxCard {
+  display: flex;
+  flex-direction: ;
+}
+
+.img {
+  margin-right: 25px;
+}
+
+.link {
+  display: inline-block;
+  /* text-decoration: none; */
+  color: blue;
+  padding: 2px;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: red;
+}
+
+.linkActive {
+  color: red;
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import * as fetchApi from '../utilits/muvie-api';
 import { ListMovies } from '../components/ListMovies/ListMovies';
+import s from './css/HomePage.module.css';
 
 export function HomePage() {
   const [listMuvies, setListMuvies] = useState([]);
@@ -15,7 +16,7 @@ export function HomePage() {
 
   if (listMuvies.length > 0) {
     return (
-      <ul>
+      <ul className={s.list}>
         <ListMovies list={listMuvies} />
       </ul>
     );

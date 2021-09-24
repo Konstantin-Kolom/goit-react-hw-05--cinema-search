@@ -6,6 +6,9 @@ import * as fetchApi from '../../utilits/muvie-api';
 export function Reviews() {
   const [reviews, setReviews] = useState([]);
   const { muvieid } = useParams();
+  const [error, setError] = useState(false);
+
+  // useEffect
 
   useEffect(() => {
     fetchApi.fetchReviews(muvieid).then(review => {
@@ -27,7 +30,7 @@ export function Reviews() {
         </ul>
       )}
 
-      {reviews.length === 0 && <p>We don't heve any reviews for this movie </p>}
+      {reviews.length === 0 && <h2>Sorry. We don't heve any reviews for this movie </h2>}
     </>
   );
 }
