@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 
 import * as fetchApi from '../utilits/muvie-api';
 import { ListMovies } from '../components/ListMovies/ListMovies';
+import { SpinnerLoader } from '../components/Loader/Loader.jsx';
+
 import s from './css/HomePage.module.css';
 
-export function HomePage() {
+export default function HomePageViews() {
   const [listMuvies, setListMuvies] = useState([]);
 
   useEffect(() => {
@@ -23,6 +25,6 @@ export function HomePage() {
   }
 
   if (listMuvies.length === 0) {
-    return <h1>Loading</h1>;
+    return <SpinnerLoader />;
   }
 }

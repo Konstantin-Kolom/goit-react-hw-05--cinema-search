@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import * as fetchApi from '../utilits/muvie-api';
 import { ListMovies } from '../components/ListMovies/ListMovies';
 import { useHistory, useLocation } from 'react-router';
+import { SpinnerLoader } from '../components/Loader/Loader.jsx';
+
 import s from './css/MoviesPage.module.css';
 
-export function MoviesPage() {
+export default function MoviesPageViews() {
   const [value, setValue] = useState('');
-
   const [listMuvies, setListMuvies] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
   const history = useHistory();
@@ -29,14 +31,19 @@ export function MoviesPage() {
     }
     history.push({ ...location, search: `query=${value}` });
     setValue('');
+    setListMuvies('');
   };
 
   useEffect(() => {
     if (searchlData !== null) {
-      fetchApi.fetchSearchMovies(searchlData).then(movie => {
-        const data = movie.results;
-        setListMuvies(data);
-      });
+      setLoading(true);
+      fetchApi
+        .fetchSearchMovies(searchlData)
+        .then(movie => {
+          const data = movie.results;
+          setListMuvies(data);
+        })
+        .finally(() => setLoading(false));
     }
   }, [searchlData]);
 
@@ -68,6 +75,8 @@ export function MoviesPage() {
           </ul>
         </div>
       )}
+
+      {loading && <SpinnerLoader />}
     </>
   );
 }

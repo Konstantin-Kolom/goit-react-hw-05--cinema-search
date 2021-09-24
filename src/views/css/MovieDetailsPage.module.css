@@ -1,6 +1,8 @@
 .button {
   font-weight: 500;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   width: 100px;
   cursor: pointer;
@@ -17,6 +19,10 @@
   border: 2px solid blue;
 }
 
+.buttonText {
+  margin-left: 5px;
+}
+
 .boxCard {
   display: flex;
   flex-direction: ;
@@ -28,7 +34,6 @@
 
 .link {
   display: inline-block;
-  /* text-decoration: none; */
   color: blue;
   padding: 2px;
   font-weight: 500;

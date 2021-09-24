@@ -1,10 +1,19 @@
+import { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { Navigation } from './components/Novigation/Novigation.jsx';
-import { HomePage } from './views/HomePage.jsx';
-import { MoviesPage } from './views/MoviesPage.jsx';
-import { MovieDetailsPage } from './views/MovieDetailsPage';
+import { SpinnerLoader } from './components/Loader/Loader.jsx';
 import s from './App.module.css';
+
+const HomePageViews = lazy(() =>
+  import('./views/HomePageViews.jsx' /* webpackChunkName: "Home-views" */),
+);
+const MoviesPageViews = lazy(() =>
+  import('./views/MoviesPageViews.jsx' /* webpackChunkName: "movies-views" */),
+);
+const MovieDetailsPageViews = lazy(
+  () => import('./views/MovieDetailsPageViews.jsx') /* webpackChunkName: "details-views" */,
+);
 
 function App() {
   return (
@@ -14,23 +23,25 @@ function App() {
       </header>
 
       <main className={s.continer}>
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
+        <Suspense fallback={<SpinnerLoader />}>
+          <Switch>
+            <Route path="/" exact>
+              <HomePageViews />
+            </Route>
 
-          <Route path="/movies/:muvieid">
-            <MovieDetailsPage />
-          </Route>
+            <Route path="/movies/:muvieid">
+              <MovieDetailsPageViews />
+            </Route>
 
-          <Route path="/movies">
-            <MoviesPage />
-          </Route>
+            <Route path="/movies">
+              <MoviesPageViews />
+            </Route>
 
-          <Route>
-            <HomePage />
-          </Route>
-        </Switch>
+            <Route>
+              <HomePageViews />
+            </Route>
+          </Switch>
+        </Suspense>
       </main>
     </>
   );

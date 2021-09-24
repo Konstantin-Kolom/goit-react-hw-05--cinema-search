@@ -8,13 +8,21 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { NotFondView } from '../views/NotFondView';
-import { Cast } from '../components/Cats/Cast';
-import { Reviews } from '../components/Reviews/Reviews';
+import { lazy, Suspense } from 'react';
+import { HiOutlineArrowCircleLeft } from 'react-icons/hi';
+import { SpinnerLoader } from '../components/Loader/Loader';
+
+import { NotFondView } from './NotFondView';
+
 import * as fetchApi from '../utilits/muvie-api';
 import s from './css/MovieDetailsPage.module.css';
 
-export function MovieDetailsPage() {
+const Cast = lazy(() => import('../components/Cats/Cast' /* webpackChunkName: "cast" */));
+const Reviews = lazy(() =>
+  import('../components/Reviews/Reviews' /* webpackChunkName: "reviews" */),
+);
+
+export default function MovieDetailsPageViews() {
   const [movie, setMuvie] = useState('');
   const [error, setError] = useState(false);
 
@@ -42,7 +50,7 @@ export function MovieDetailsPage() {
     return (
       <div>
         <button type="button" onClick={handleClick} className={s.button}>
-          Go back
+          <HiOutlineArrowCircleLeft size="20px" /> <span className={s.buttonText}> Go back</span>
         </button>
 
         <div>
@@ -72,30 +80,32 @@ export function MovieDetailsPage() {
           <div>
             <h4>Additional information</h4>
             <ul>
-              <li>
-                <NavLink
-                  to={{
-                    pathname: `${url}/cast`,
-                    state: { from: location.state.from },
-                  }}
-                  className={s.link}
-                  activeClassName={s.linkActive}
-                >
-                  Cast
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={{
-                    pathname: `${url}/reviews`,
-                    state: { from: location.state.from },
-                  }}
-                  className={s.link}
-                  activeClassName={s.linkActive}
-                >
-                  Reviews
-                </NavLink>
-              </li>
+              <Suspense fallback={<SpinnerLoader />}>
+                <li>
+                  <NavLink
+                    to={{
+                      pathname: `${url}/cast`,
+                      state: { from: location.state.from },
+                    }}
+                    className={s.link}
+                    activeClassName={s.linkActive}
+                  >
+                    Cast
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to={{
+                      pathname: `${url}/reviews`,
+                      state: { from: location.state.from },
+                    }}
+                    className={s.link}
+                    activeClassName={s.linkActive}
+                  >
+                    Reviews
+                  </NavLink>
+                </li>
+              </Suspense>
 
               <Route path={`${path}/cast`}>
                 <Cast />
@@ -112,14 +122,14 @@ export function MovieDetailsPage() {
   }
 
   if (movie === '' && error === false) {
-    return <h1>Loading... Please waite </h1>;
+    return <SpinnerLoader />;
   }
 
   if (movie === '' && error === true) {
     return (
       <>
         <button type="button" onClick={handleClick} className={s.button}>
-          Go back
+          <HiOutlineArrowCircleLeft size="20px" /> <span className={s.buttonText}> Go back</span>
         </button>
         <NotFondView />
       </>

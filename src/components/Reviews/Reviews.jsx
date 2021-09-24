@@ -1,20 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { SpinnerLoader } from '../Loader/Loader';
 
 import * as fetchApi from '../../utilits/muvie-api';
 
-export function Reviews() {
+export default function Reviews() {
   const [reviews, setReviews] = useState([]);
   const { muvieid } = useParams();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // useEffect
-
   useEffect(() => {
-    fetchApi.fetchReviews(muvieid).then(review => {
-      const data = review.results;
-      setReviews(data);
-    });
+    setLoading(true);
+    fetchApi
+      .fetchReviews(muvieid)
+      .then(review => {
+        const data = review.results;
+        if (review.results.length === 0) {
+          setError(true);
+        }
+        setReviews(data);
+      })
+      .finally(() => setLoading(false));
   }, [muvieid]);
 
   return (
@@ -30,7 +37,9 @@ export function Reviews() {
         </ul>
       )}
 
-      {reviews.length === 0 && <h2>Sorry. We don't heve any reviews for this movie </h2>}
+      {loading && <SpinnerLoader />}
+
+      {error && <h2>Sorry. We don't heve any reviews for this movie </h2>}
     </>
   );
 }

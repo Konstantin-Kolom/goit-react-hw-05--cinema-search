@@ -1,16 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import { SpinnerLoader } from '../Loader/Loader';
+
 import * as fetchApi from '../../utilits/muvie-api';
 
-export function Cast() {
-  const { muvieid } = useParams();
+export default function Cast() {
   const [actors, setActors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const { muvieid } = useParams();
 
   useEffect(() => {
-    fetchApi.fetchActors(muvieid).then(actor => {
-      const data = actor.cast;
-      setActors(data);
-    });
+    setLoading(true);
+    fetchApi
+      .fetchActors(muvieid)
+      .then(actor => {
+        if (actor.length === 0) {
+          setError(true);
+        }
+        const data = actor.cast;
+        setActors(data);
+      })
+      .finally(() => setLoading(false));
   }, [muvieid]);
 
   return (
@@ -22,9 +34,10 @@ export function Cast() {
           <p>Character: {actor.character}</p>
         </div>
       ))}
-      {actors.length === 0 && (
-        <h2>Sorry. We have no information about the actors for this movie </h2>
-      )}
+
+      {loading && <SpinnerLoader />}
+
+      {error && <h2>Sorry. We have no information about the actors for this movie </h2>}
     </>
   );
 }
