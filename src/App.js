@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { Navigation } from './components/Novigation/Novigation.jsx';
 import { SpinnerLoader } from './components/Loader/Loader.jsx';
@@ -37,8 +37,8 @@ function App() {
               <MoviesPageViews />
             </Route>
 
-            <Route>
-              <HomePageViews />
+            <Route path="*">
+              <Redirect to="/"></Redirect>
             </Route>
           </Switch>
         </Suspense>
