@@ -38,7 +38,9 @@ function App() {
             </Route>
 
             <Route path="*">
-              <Redirect to="/"></Redirect>
+              <Redirect to="/">
+                <HomePageViews />
+              </Redirect>
             </Route>
           </Switch>
         </Suspense>
