@@ -25,8 +25,6 @@ function App() {
       <main className={s.continer}>
         <Suspense fallback={<SpinnerLoader />}>
           <Switch>
-            {/* <Redirect from="*" to="/" /> */}
-
             <Route exact path="/">
               <HomePageViews />
             </Route>
@@ -39,11 +37,14 @@ function App() {
               <MoviesPageViews />
             </Route>
 
-            {/* <Route path="*"> */}
-            <Redirect to="/" />
-            {/* <HomePageViews /> */}
-            {/* </Redirect> */}
-            {/* </Route> */}
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
+
+            {/* <Redirect to="/" /> */}
+            {/* <Route path="*">
+              <HomePageViews />
+            </Route> */}
           </Switch>
         </Suspense>
       </main>
