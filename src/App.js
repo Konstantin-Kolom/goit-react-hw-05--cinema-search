@@ -38,7 +38,7 @@ function App() {
             </Route>
 
             {/* <Route path="*"> */}
-            <Redirect from="*" to="/">
+            <Redirect to="/">
               <HomePageViews />
             </Redirect>
             {/* </Route> */}
