@@ -3,7 +3,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { Navigation } from './components/Novigation/Novigation.jsx';
 import { SpinnerLoader } from './components/Loader/Loader.jsx';
-import { NotFondView } from './views/NotFondView';
 import s from './App.module.css';
 
 const HomePageViews = lazy(() =>
@@ -26,23 +25,25 @@ function App() {
       <main className={s.continer}>
         <Suspense fallback={<SpinnerLoader />}>
           <Switch>
+            {/* <Redirect from="*" to="/" /> */}
+
             <Route exact path="/">
               <HomePageViews />
             </Route>
+
             <Route path="/movies/:muvieid">
               <MovieDetailsPageViews />
             </Route>
+
             <Route exact path="/movies">
               <MoviesPageViews />
             </Route>
+
             {/* <Route path="*"> */}
-            {/* <Redirect from="*" to="/">
-              <HomePageViews />
-            </Redirect> */}
-            {/* </Route> */}S
-            <Route>
-              <NotFondView />
-            </Route>
+            <Redirect to="/" />
+            {/* <HomePageViews /> */}
+            {/* </Redirect> */}
+            {/* </Route> */}
           </Switch>
         </Suspense>
       </main>
