@@ -37,8 +37,9 @@ function App() {
               <MoviesPageViews />
             </Route>
 
-            <Route path="/*">
+            <Route path="*">
               <Redirect to="/" />
+              <HomePageViews />
             </Route>
           </Switch>
         </Suspense>
